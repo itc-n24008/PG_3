@@ -1,59 +1,54 @@
 import random, sys
 
-print('ROCK, PAPER, SCISSORS')
-# 次の変数に、勝ち、負け、引き分けの数を記録する
+print('じゃんけんぽん！')
+
 wins = 0
 losses = 0
 ties = 0
 
-while True: # メインのゲームループ
-    print(str(wins)+' Wins, '+str(losses)+' Losses, '+str(ties)+' Ties')
+while True:  # メインゲームループ
+    print(str(wins) + ' Wins, ' + str(losses) + ' Losses, ' + str(ties) + ' Ties')
+    print('rはグー,pはパー,sはチョキ,かqで終了！')
+
     player_move = input()
+
     if player_move == 'q':
-        sys.exit() #プログラムを終了する
-    if player_move == 'r' or player_move == 'p' or player_move == 's':
-        break # 入力ループを抜ける
-    print('Type one of r, p, s, or q.')
+        sys.exit()  # プログラム終了
 
-# プレイヤーの入力した手を表示する
-if player_move == 'r':
-    print('ROCK versus...')
-elif player_move == 'p':
-    print('PAPER versus...')
-elif player_move == 's':
-    print('SCISSORS versus...')
+    # 正しい入力チェック
+    if player_move not in ['r', 'p', 's']:
+        print('r,p,s,qのいずれかをだしてね！')
+        continue  # ゲームループの先頭に戻る
 
-# コンピュータの手を表示する
-random_number = random.randint(1, 3)
-if random_number == 1:
-    computer_move = 'r'
-    print('ROCK')
-elif random_number == 2:
-    computer_move = 'p'
-    print('PAPER')
-elif random_number == 3:
-    computer_move = 's'
-    print('SCISSORS')
+    # プレイヤーの手を表示
+    if player_move == 'r':
+        print('グーをだした...')
+    elif player_move == 'p':
+        print('パーをだした...')
+    elif player_move == 's':
+        print('チョキをだした...')
 
-# 勝ち/負け/引き分けを表示記録する
-if player_move == computer_move:
-    print('It is a tie!')
-    ties = ties + 1
-elif player_move == 'r' and computer_move == 's':
-    print('You win!')
-    wins = wins + 1
-elif player_move == 'p' and computer_move == 'r':
-    print('You win!')
-    wins = wins + 1
-elif player_move == 's' and computer_move == 'p':
-    print('You win!')
-    wins = wins + 1
-elif player_move == 'r' and computer_move == 'p':
-    print('You lose!')
-    losses = losses + 1
-elif player_move == 'p' and computer_move == 's':
-    print('You lose!')
-    losses = losses + 1
-elif player_move == 's' and computer_move == 'r':
-    print('You lose!')
-    losses = losses + 1
+    # コンピュータの手を決める
+    random_number = random.randint(1, 3)
+    if random_number == 1:
+        computer_move = 'r'
+        print('グー')
+    elif random_number == 2:
+        computer_move = 'p'
+        print('パー')
+    else:
+        computer_move = 's'
+        print('チョキ')
+
+    # 勝敗判定
+    if player_move == computer_move:
+        print('引き分け！')
+        ties += 1
+    elif (player_move == 'r' and computer_move == 's') or \
+         (player_move == 'p' and computer_move == 'r') or \
+         (player_move == 's' and computer_move == 'p'):
+        print('勝ち！')
+        wins += 1
+    else:
+        print('負け！')
+        losses += 1
